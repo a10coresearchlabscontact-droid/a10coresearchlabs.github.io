@@ -1188,30 +1188,29 @@
                 <button id="welcomeEN" class="active">EN</button>
                 <button id="welcomeES">ES</button>
               </div>
+            
             </div>
+        <div class="welcome-video-wrap">
+    <div class="video-shell">
+      <video
+        id="welcomeVideo"
+        class="welcome-video"
+        playsinline
+        muted
+        preload="metadata"
+      >
+        <source id="welcomeSource" src="./welcome-en.mp4" type="video/mp4">
+      </video>
 
-            <div class="welcome-video-wrap">
-              <video
-                id="welcomeVideo"
-                class="welcome-video"
-                controls
-                playsinline
-                muted
-                preload="auto"
-                data-src-en="welcome-en.mp4"
-                data-src-es="welcome-es.mp4"
-              >
-                Your browser does not support the video tag.
-              </video>
+      <button id="welcomeOverlay" class="welcome-overlay" type="button" aria-label="Tap to play welcome video">
+        <span class="overlay-btn">Tap to play</span>
+      </button>
+    </div>
 
-              <div class="welcome-overlay" id="welcomeOverlay" role="button" tabindex="0" aria-label="Tap to play welcome video">
-                <div class="overlay-btn">Tap to play</div>
-              </div>
-            </div>
-
-            <div class="welcome-note">
-              Autoplays once when you scroll here (muted). Controls remain available.
-            </div>
+    <div class="welcome-note">
+      Autoplays once when you scroll here (muted). Controls remain available.
+    </div>
+  </div>
           </div>
 
           <div class="panel-grid">
@@ -1939,6 +1938,98 @@
     chLangEN.addEventListener("click", () => setChapterLang("EN"));
     chLangES.addEventListener("click", () => setChapterLang("ES"));
     setChapterLang("EN");
+  /* ===========================
+   WELCOME VIDEO (EN/ES + autoplay-on-scroll + tap-to-play)
+   =========================== */
+
+(function () {
+  const video = document.getElementById("welcomeVideo");
+  const source = document.getElementById("welcomeSource");
+  const overlay = document.getElementById("welcomeOverlay");
+  const btnEN = document.getElementById("welcomeEN");
+  const btnES = document.getElementById("welcomeES");
+  const wrap = document.querySelector(".welcome-video-wrap");
+
+  if (!video || !source || !overlay || !btnEN || !btnES || !wrap) return;
+
+  // Safety: ensure these behave as expected
+  video.muted = true;
+  video.playsInline = true;
+  video.setAttribute("playsinline", "");
+  video.setAttribute("muted", "");
+  video.loop = true;
+
+  const srcEN = "./welcome-en.mp4";
+  const srcES = "./welcome-es.mp4";
+
+  function setActive(lang) {
+    if (lang === "EN") {
+      btnEN.classList.add("active");
+      btnES.classList.remove("active");
+    } else {
+      btnES.classList.add("active");
+      btnEN.classList.remove("active");
+    }
+  }
+
+  function setVideoSrc(url) {
+    // Pause, swap source, reload, keep at start
+    try { video.pause(); } catch (_) {}
+    source.setAttribute("src", url);
+    video.load();
+    overlay.style.display = ""; // show overlay until play succeeds
+  }
+
+  async function tryPlay() {
+    try {
+      const p = video.play();
+      if (p && typeof p.then === "function") await p;
+      // If it played, hide overlay
+      overlay.style.display = "none";
+      return true;
+    } catch (e) {
+      // Autoplay blocked -> keep overlay visible
+      overlay.style.display = "";
+      return false;
+    }
+  }
+
+  // Tap-to-play
+  overlay.addEventListener("click", async () => {
+    await tryPlay();
+  });
+
+  // Switch language buttons
+  btnEN.addEventListener("click", async () => {
+    setActive("EN");
+    setVideoSrc(srcEN);
+    await tryPlay();
+  });
+
+  btnES.addEventListener("click", async () => {
+    setActive("ES");
+    setVideoSrc(srcES);
+    await tryPlay();
+  });
+
+  // Autoplay on scroll into view (muted)
+  const io = new IntersectionObserver(
+    async (entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+      if (entry.isIntersecting) {
+        await tryPlay();
+      }
+    },
+    { threshold: 0.35 }
+  );
+
+  io.observe(wrap);
+
+  // Ensure initial state
+  setActive("EN");
+  if (!source.getAttribute("src")) setVideoSrc(srcEN);
+})();
   </script>
 </body>
 </html>
