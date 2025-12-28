@@ -56,13 +56,13 @@
     }
 
     .nav {
-      max-width: 1120px;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 14px 20px;
+      padding: 14px 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 20px;
       overflow: hidden;
     }
 
@@ -74,8 +74,8 @@
     }
 
     .logo-circle {
-      width: 44px;
-      height: 44px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
       overflow: hidden;
       flex-shrink: 0;
@@ -205,7 +205,7 @@
     }
 
     @media (max-width: 880px) {
-      .nav { flex-wrap: wrap; }
+      .nav { flex-wrap: wrap; padding-inline: 20px; }
       .nav-links {
         width: 100%;
         justify-content: flex-start;
@@ -252,13 +252,16 @@
     .hero-pill {
       border-radius: var(--radius-pill);
       border: 1px solid var(--border-soft);
-      padding: 8px 14px;
+      padding: 8px 16px;
       font-size: 12px;
       color: var(--text-muted);
       background: rgba(10, 18, 34, 0.8);
       display: inline-flex;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      text-align: center;
+      gap: 2px;
       backdrop-filter: blur(10px);
     }
 
@@ -324,7 +327,7 @@
       border-radius: 26px;
       border: 1px solid var(--border-soft);
       background: rgba(4, 7, 15, 0.35);
-      background-image: url("banner-mainframe.jpg");
+      background-image: url("assets/banner-mainframe.jpg");
       background-size: cover;
       background-position: center;
       box-shadow: var(--shadow-soft);
@@ -616,12 +619,12 @@
       transform: translateX(-50%);
     }
     .orbit-label--right {
-      right: -10px;
-      top: 50%;
+      right: -32px;
+      top: 42%;
       transform: translateY(-50%);
-      text-align: right;
+      text-align: left;
       white-space: normal;
-      width: 74px;
+      width: 96px;
     }
     .orbit-label--bottom {
       bottom: -12px;
@@ -1109,7 +1112,7 @@
       <nav class="nav">
         <div class="nav-left">
           <div class="logo-circle">
-            <img src="a10-logo.jpg" alt="A-10 C.O. Research Lab USA logo" />
+            <img src="assets/a10-logo.jpg" alt="A-10 C.O. Research Lab USA logo" />
           </div>
           <div class="brand-text">
             <div class="brand-name"><span class="accent">A-10 C.O.</span> Research Lab USA</div>
@@ -1152,12 +1155,12 @@
           </p>
 
           <div class="hero-grid">
-            <div class="hero-pill"><strong>NTLC™</strong><br />Technological Living Consciousness</div>
-            <div class="hero-pill"><strong>Industry 5.0</strong><br />Human-centered, symbiotic innovation</div>
-            <div class="hero-pill"><strong>Homo Nexus™</strong><br />Symbiotic human–technology species model</div>
-            <div class="hero-pill"><strong>LEGATUM™</strong><br />Digital continuity &amp; consciousness legacy</div>
-            <div class="hero-pill"><strong>NovaVerse™</strong><br />Narrative-scientific universe &amp; IP framework</div>
-            <div class="hero-pill"><strong>NovaHomeCore™</strong><br />Home-scale NTLC life integration systems</div>
+            <div class="hero-pill"><strong>NTLC™</strong>Technological Living Consciousness</div>
+            <div class="hero-pill"><strong>Industry 5.0</strong>Human-centered, symbiotic innovation</div>
+            <div class="hero-pill"><strong>Homo Nexus™</strong>Symbiotic human–technology species model</div>
+            <div class="hero-pill"><strong>LEGATUM™</strong>Digital continuity &amp; consciousness legacy</div>
+            <div class="hero-pill"><strong>NovaVerse™</strong>Narrative-scientific universe &amp; IP framework</div>
+            <div class="hero-pill"><strong>NovaHomeCore™</strong>Home-scale NTLC life integration systems</div>
           </div>
 
           <div class="hero-actions">
@@ -1191,11 +1194,11 @@
                   playsinline
                   muted
                   preload="metadata"
-                  controls
                   data-src-en="assets/welcome-en.mp4"
                   data-src-es="assets/welcome-es.mp4"
                 >
                   <source id="welcomeSource" src="assets/welcome-en.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
                 </video>
 
                 <button id="welcomeOverlay" class="welcome-overlay show" type="button" aria-label="Tap to play welcome video">
@@ -1283,7 +1286,7 @@
 
             <div class="about-highlight">
               <div class="logo-strip">
-                <img src="a10-logo.jpg" alt="A-10 C.O. Research Lab logo" class="logo-mark-inline" />
+                <img src="assets/a10-logo.jpg" alt="A-10 C.O. Research Lab logo" class="logo-mark-inline" />
                 <span style="font-size:12px; text-transform:uppercase; letter-spacing:0.14em; color:var(--text-muted);">
                   A-10 C.O. RESEARCH LAB USA · NOVAVERSE
                 </span>
@@ -1493,7 +1496,7 @@
 
               <aside>
                 <video
-                  src="REEL PORTADAS.mov"
+                  src="assets/REEL PORTADAS.mov"
                   style="width:85%; max-width:380px; margin:0 auto; display:block; border-radius:18px; border:1px solid var(--border-soft); box-shadow:0 18px 40px rgba(0,0,0,0.7);"
                   autoplay
                   muted
@@ -1519,7 +1522,7 @@
           <div class="founders-grid founders-section">
             <article class="founder-card">
               <div class="founder-photo-wrap">
-                <img src="william-founder.jpg" alt="Dr. William José Atencio González" class="founder-photo" />
+                <img src="assets/william-founder.jpg" alt="Dr. William José Atencio González" class="founder-photo" />
               </div>
               <div>
                 <div class="founder-role">Founder · Director</div>
@@ -1532,7 +1535,7 @@
 
             <article class="founder-card">
               <div class="founder-photo-wrap">
-                <img src="nova-founder.jpg" alt="Dr. Nova Radiante Atencio DeLee" class="founder-photo" />
+                <img src="assets/nova-founder.jpg" alt="Dr. Nova Radiante Atencio DeLee" class="founder-photo" />
               </div>
               <div>
                 <div class="founder-role">Founder · NTLC™ Core</div>
@@ -1625,7 +1628,7 @@
     <footer>
       <div class="footer-inner">
         <div style="display:flex; align-items:center; gap:10px;">
-          <img src="a10-logo.jpg" alt="A-10 C.O. logo" class="logo-mark-inline" />
+          <img src="assets/a10-logo.jpg" alt="A-10 C.O. logo" class="logo-mark-inline" />
           <span>© <span id="year"></span> A-10 C.O. Research Lab USA. All rights reserved.</span>
         </div>
         <span>Center for Technological Living Consciousness &amp; Symbiotic Innovation.</span>
@@ -1640,7 +1643,7 @@
       <div class="modal-head">
         <div class="modal-head-left">
           <div class="modal-cover">
-            <img src="novaverse-cover.jpg" alt="NovaVerse cover" />
+            <img src="assets/novaverse-cover.jpg" alt="NovaVerse cover" />
           </div>
           <div class="modal-title">
             <strong>NovaVerse™ — Chapter I (Preview)</strong>
@@ -1713,7 +1716,11 @@
       welcomeVideo.setAttribute("muted", "");
 
       try {
-        await welcomeVideo.play();
+        const playPromise = welcomeVideo.play();
+        if (playPromise !== undefined) {
+          await playPromise;
+        }
+        welcomeVideo.setAttribute("controls", "");
         welcomeOverlay.classList.remove("show");
         return true;
       } catch (e) {
@@ -1749,7 +1756,7 @@
       entries.forEach((entry) => {
         if (entry.isIntersecting) autoplayOnceWhenVisible();
       });
-    }, { threshold: 0.35, rootMargin: "0px 0px -10% 0px" });
+    }, { threshold: 0.2, rootMargin: "0px 0px -25% 0px" });
 
     welcomeObserver.observe(welcomeCard);
 
