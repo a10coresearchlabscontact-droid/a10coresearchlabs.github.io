@@ -157,8 +157,8 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 60px;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 70px;
       align-items: center;
     }
 
@@ -229,71 +229,33 @@
       transform: translateY(-2px);
     }
 
-    /* HERO CONCEPT VIDEO */
+    /* HERO VIDEO */
 
-    .hero-visual {
-      position: relative;
-    }
-
-    .hero-visual-card {
-      position: relative;
-      overflow: hidden;
+    .hero-panel {
+      background:
+        linear-gradient(145deg, rgba(13, 34, 60, 0.9), rgba(3, 11, 22, 0.92));
       border: 1px solid var(--line-strong);
       border-radius: 28px;
-      background:
-        linear-gradient(145deg, rgba(13, 34, 60, 0.9), rgba(3, 11, 22, 0.96));
       box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.40),
-        0 0 55px rgba(73, 232, 255, 0.07);
+        0 30px 80px rgba(0,0,0,.35),
+        inset 0 0 45px rgba(73,232,255,.035);
     }
 
-    .hero-video {
-      width: 100%;
-      height: auto;
-      display: block;
+    .video-panel {
+      padding: 0;
+      overflow: hidden;
+      position: relative;
       background: #01040a;
     }
 
-    .hero-video-overlay {
-      padding: 24px 26px 25px;
-      border-top: 1px solid var(--line);
-      background:
-        linear-gradient(
-          180deg,
-          rgba(6, 16, 28, 0.96),
-          rgba(3, 10, 20, 0.98)
-        );
-    }
-
-    .hero-video-kicker {
-      color: var(--cyan);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .hero-video-title {
-      font-size: clamp(24px, 3vw, 34px);
-      line-height: 1.05;
-      letter-spacing: -0.025em;
-      margin-bottom: 12px;
-    }
-
-    .hero-video-copy {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .hero-video-caption {
-      margin-top: 16px;
-      color: #647b90;
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
+    .hero-concept-video {
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      display: block;
+      object-fit: cover;
+      border-radius: 28px;
+      background: #01040a;
     }
 
     /* GENERAL */
@@ -677,8 +639,11 @@
         min-height: auto;
       }
 
-      .hero-visual {
-        margin-top: 10px;
+      .hero-concept-video {
+        min-height: 0;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
       }
     }
 
@@ -707,20 +672,9 @@
         padding-top: 65px;
       }
 
-      .hero-visual-card {
+      .hero-panel,
+      .hero-concept-video {
         border-radius: 20px;
-      }
-
-      .hero-video-overlay {
-        padding: 20px;
-      }
-
-      .hero-video-copy {
-        font-size: 13px;
-      }
-
-      .hero-video-caption {
-        font-size: 8px;
       }
     }
   </style>
@@ -797,52 +751,26 @@
         </div>
 
 
-        <div class="hero-visual">
+        <div class="hero-panel video-panel">
 
-          <div class="hero-visual-card">
+          <video
+            class="hero-concept-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label="AtencIA conceptual intelligent environment visualization"
+          >
 
-            <video
-              class="hero-video"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              aria-label="AtencIA future intelligent environment concept visualization"
+            <source
+              src="assets/atencia-concept-video.mp4"
+              type="video/mp4"
             >
-              <source
-                src="assets/atencia-concept-video.mp4"
-                type="video/mp4"
-              >
 
-              Your browser does not support HTML5 video.
-            </video>
+            Your browser does not support HTML5 video.
 
-
-            <div class="hero-video-overlay">
-
-              <div class="hero-video-kicker">
-                Human × Intelligence
-              </div>
-
-              <h3 class="hero-video-title">
-                Intelligence beyond the screen.
-              </h3>
-
-              <p class="hero-video-copy">
-                Concept visualization exploring how a persistent
-                intelligent continuum could manifest across future
-                physical environments while preserving identity,
-                context and continuity.
-              </p>
-
-              <div class="hero-video-caption">
-                Concept Visualization · A-10 C.O. Research Labs™
-              </div>
-
-            </div>
-
-          </div>
+          </video>
 
         </div>
 
