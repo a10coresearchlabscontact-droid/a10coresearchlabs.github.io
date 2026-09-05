@@ -9,13 +9,12 @@ September 2026
 FILES EXPECTED IN THE ROOT OF THE WEBSITE:
 
 index.html
-a10-floating-visual-strip.png
-atencia-concept-video.mp4
-a10-labs-ambient-compatible.mp3
-a10-labs-ambient-compatible.m4a
-atencia-logo.PNG
-novaverse-saga-banner.PNG
-william-atencio-founder.png
+assets/a10-floating-visual-strip.png
+assets/atencia-concept-video.MP4
+assets/a10-labs-ambient.m4a
+assets/atencia-logo.PNG
+assets/novaverse-saga-banner.PNG
+assets/william-atencio-founder.png
 
 ==========================================================
 -->
@@ -369,12 +368,12 @@ william-atencio-founder.png
     .prototype-background-zone::before {
       content: "";
       position: absolute;
-      inset: 0 -2vw 0 auto;
+      inset: 0 auto 0 -2vw;
       width: min(58vw, 440px);
-      background-image: url("a10-floating-visual-strip.png"), url("/a10-floating-visual-strip.png");
-      background-repeat: repeat-y, repeat-y;
-      background-position: right top, right top;
-      background-size: 100% auto, 100% auto;
+      background-image: url("assets/a10-floating-visual-strip.png");
+      background-repeat: repeat-y;
+      background-position: left top;
+      background-size: 100% auto;
       opacity: 0.80;
       pointer-events: none;
       filter:
@@ -382,23 +381,21 @@ william-atencio-founder.png
         drop-shadow(0 0 45px rgba(23,141,255,.10));
       -webkit-mask-image: linear-gradient(
         to right,
-        transparent 0%,
-        rgba(0,0,0,.08) 6%,
-        rgba(0,0,0,.20) 12%,
-        rgba(0,0,0,.45) 20%,
-        rgba(0,0,0,.72) 30%,
-        #000 43%,
-        #000 100%
+        #000 0%,
+        #000 42%,
+        rgba(0,0,0,.78) 56%,
+        rgba(0,0,0,.42) 72%,
+        rgba(0,0,0,.14) 86%,
+        transparent 100%
       );
       mask-image: linear-gradient(
         to right,
-        transparent 0%,
-        rgba(0,0,0,.08) 6%,
-        rgba(0,0,0,.20) 12%,
-        rgba(0,0,0,.45) 20%,
-        rgba(0,0,0,.72) 30%,
-        #000 43%,
-        #000 100%
+        #000 0%,
+        #000 42%,
+        rgba(0,0,0,.78) 56%,
+        rgba(0,0,0,.42) 72%,
+        rgba(0,0,0,.14) 86%,
+        transparent 100%
       );
     }
 
@@ -2126,7 +2123,7 @@ william-atencio-founder.png
 
       .prototype-background-zone::before {
 
-        right:
+        left:
           -4vw;
 
         width:
@@ -2235,7 +2232,7 @@ william-atencio-founder.png
 
       .prototype-background-zone::before {
 
-        right:
+        left:
           -5vw;
 
         width:
@@ -2248,72 +2245,25 @@ william-atencio-founder.png
           0.67;
 
         -webkit-mask-image:
-
           linear-gradient(
             to right,
-
-            transparent 0%,
-
-            rgba(
-              0,
-              0,
-              0,
-              0.08
-            ) 5%,
-
-            rgba(
-              0,
-              0,
-              0,
-              0.28
-            ) 16%,
-
-            rgba(
-              0,
-              0,
-              0,
-              0.58
-            ) 27%,
-
-            #000 43%,
-
-            #000 100%
-
+            #000 0%,
+            #000 38%,
+            rgba(0,0,0,.72) 54%,
+            rgba(0,0,0,.38) 72%,
+            rgba(0,0,0,.12) 86%,
+            transparent 100%
           );
 
-
         mask-image:
-
           linear-gradient(
             to right,
-
-            transparent 0%,
-
-            rgba(
-              0,
-              0,
-              0,
-              0.08
-            ) 5%,
-
-            rgba(
-              0,
-              0,
-              0,
-              0.28
-            ) 16%,
-
-            rgba(
-              0,
-              0,
-              0,
-              0.58
-            ) 27%,
-
-            #000 43%,
-
-            #000 100%
-
+            #000 0%,
+            #000 38%,
+            rgba(0,0,0,.72) 54%,
+            rgba(0,0,0,.38) 72%,
+            rgba(0,0,0,.12) 86%,
+            transparent 100%
           );
 
       }
@@ -2359,7 +2309,7 @@ william-atencio-founder.png
 
       .prototype-background-zone::before {
 
-        right:
+        left:
           -6vw;
 
         width:
@@ -2410,10 +2360,7 @@ william-atencio-founder.png
   ===================================================== -->
 
   <audio id="ambientAudio" preload="auto" loop playsinline>
-    <source src="a10-labs-ambient-compatible.mp3" type="audio/mpeg">
-    <source src="/a10-labs-ambient-compatible.mp3" type="audio/mpeg">
-    <source src="a10-labs-ambient-compatible.m4a" type="audio/mp4">
-    <source src="/a10-labs-ambient-compatible.m4a" type="audio/mp4">
+    <source src="assets/a10-labs-ambient.m4a" type="audio/mp4">
   </audio>
 
 
@@ -2634,9 +2581,7 @@ william-atencio-founder.png
             disablepictureinpicture
             aria-label="AtencIA conceptual intelligent environment visualization"
           >
-            <source src="atencia-concept-video.mp4" type="video/mp4">
-            <source src="/atencia-concept-video.mp4" type="video/mp4">
-            <source src="assets/atencia-concept-video.mp4" type="video/mp4">
+            <source src="assets/atencia-concept-video.MP4" type="video/mp4">
             Your browser does not support HTML5 video.
           </video>
 
@@ -3188,7 +3133,7 @@ william-atencio-founder.png
 
 
           <img
-            src="/atencia-logo.PNG"
+            src="assets/atencia-logo.PNG"
             alt="AtencIA — Atencio Intelligent Architecture"
           >
 
@@ -3354,7 +3299,7 @@ william-atencio-founder.png
 
 
             <img
-              src="/novaverse-saga-banner.PNG"
+              src="assets/novaverse-saga-banner.PNG"
               alt="NovaVerse Saga — Science Fiction Universe"
             >
 
@@ -3446,7 +3391,7 @@ william-atencio-founder.png
 
 
             <img
-              src="/william-atencio-founder.png"
+              src="assets/william-atencio-founder.png"
               alt="Dr. William J. Atencio González — Founder and Research Director"
             >
 
@@ -3920,7 +3865,7 @@ william-atencio-founder.png
 
 
         <img
-          src="/novaverse-saga-banner.PNG"
+          src="assets/novaverse-saga-banner.PNG"
           alt="NovaVerse Saga — Science Fiction Universe"
         >
 
@@ -4276,7 +4221,7 @@ william-atencio-founder.png
 
                 setAmbientUI(
                   "error",
-                  "Could not play /a10-labs-ambient-compatible.mp3"
+                  "Could not play assets/a10-labs-ambient.m4a"
                 );
 
 
