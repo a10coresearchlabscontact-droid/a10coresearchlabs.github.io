@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- A-10 C.O. Research Labs™ — Website Version 3.0 -->
+<!-- A-10 C.O. Research Labs™ — Website Version 3.0 | Clean Production Build -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -857,7 +857,7 @@
     aria-hidden="true"
   >
 
-  <!-- Optional ambient track. Browsers require user interaction before audible playback. -->
+  <!-- Version 3.0 ambient soundtrack: a10-labs-ambient.m4a. Browsers require user interaction before audible playback. -->
   <audio
     id="ambientAudio"
     src="a10-labs-ambient.m4a"
@@ -950,6 +950,7 @@
 
         <div class="hero-panel video-panel">
 
+          <!-- Concept video remains intentionally silent; ambient audio is controlled separately. -->
           <video
             class="hero-concept-video"
             autoplay
@@ -1749,8 +1750,6 @@
     (() => {
       const ambientAudio = document.getElementById("ambientAudio");
       const ambientToggle = document.getElementById("ambientToggle");
-      const heroVideo = document.querySelector(".hero-concept-video");
-
       const zoomTrigger = document.getElementById("novaverseZoomTrigger");
       const lightbox = document.getElementById("novaverseLightbox");
       const lightboxClose = document.getElementById("lightboxClose");
@@ -1784,34 +1783,6 @@
         setAmbientUI();
       });
 
-      function setVideoSoundUI() {
-        if (!heroVideo) return;
-
-        const soundOn = !heroVideo.muted;
-        videoSoundToggle.classList.toggle("is-on", soundOn);
-        videoSoundToggle.setAttribute("aria-pressed", String(soundOn));
-        videoSoundToggle.textContent = soundOn
-          ? "Video Sound · On"
-          : "Video Sound · Off";
-      }
-
-      videoSoundToggle.addEventListener("click", async () => {
-        if (!heroVideo) return;
-
-        heroVideo.muted = !heroVideo.muted;
-
-        if (!heroVideo.muted && heroVideo.paused) {
-          try {
-            await heroVideo.play();
-          } catch (error) {
-            heroVideo.muted = true;
-            console.warn("Video audio could not start:", error);
-          }
-        }
-
-        setVideoSoundUI();
-      });
-
       function openLightbox() {
         lastFocusedElement = document.activeElement;
         lightbox.classList.add("is-open");
@@ -1839,7 +1810,6 @@
       });
 
       setAmbientUI();
-      setVideoSoundUI();
     })();
   </script>
 
