@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- A-10 C.O. Research Labs™ — Website Version 3.0 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -619,6 +620,151 @@
       color: #d9e8f2;
     }
 
+
+    /* VERSION 3.0 — FLOATING VISUAL OVERLAY */
+
+    .floating-visual-overlay {
+      position: fixed;
+      top: 78px;
+      right: 0;
+      height: calc(100vh - 78px);
+      width: auto;
+      max-width: none;
+      z-index: 20;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.82;
+      filter:
+        drop-shadow(0 0 16px rgba(73, 232, 255, 0.08))
+        drop-shadow(0 0 32px rgba(23, 141, 255, 0.05));
+      transform: translateZ(0);
+    }
+
+    /* Floating page audio controls */
+    .sound-dock {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 1200;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .sound-btn {
+      min-height: 42px;
+      padding: 0 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: rgba(2, 7, 17, 0.90);
+      backdrop-filter: blur(14px);
+      color: #dffbff;
+      font-family: inherit;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: .25s ease;
+      box-shadow: 0 12px 30px rgba(0,0,0,.24);
+    }
+
+    .sound-btn:hover,
+    .sound-btn:focus-visible {
+      border-color: var(--cyan);
+      color: white;
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .sound-btn.is-on {
+      background: linear-gradient(90deg, rgba(35,216,255,.95), rgba(19,134,255,.95));
+      color: #00101d;
+      border-color: transparent;
+    }
+
+    /* NovaVerse click-to-zoom */
+    .novaverse-banner button {
+      width: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      display: block;
+      background: transparent;
+      cursor: zoom-in;
+    }
+
+    .novaverse-banner button:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: -4px;
+    }
+
+    .novaverse-banner img {
+      transition: transform .35s ease, filter .35s ease;
+    }
+
+    .novaverse-banner button:hover img {
+      transform: scale(1.012);
+      filter: brightness(1.05);
+    }
+
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 26px;
+      background: rgba(0, 5, 12, .94);
+      backdrop-filter: blur(14px);
+    }
+
+    .image-lightbox.is-open {
+      display: flex;
+    }
+
+    .image-lightbox-inner {
+      position: relative;
+      width: min(96vw, 1500px);
+      max-height: 92vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-lightbox img {
+      max-width: 100%;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 18px;
+      border: 1px solid var(--line-strong);
+      box-shadow: 0 30px 100px rgba(0,0,0,.65);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--line-strong);
+      background: #06101c;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .lightbox-close:hover,
+    .lightbox-close:focus-visible {
+      border-color: var(--cyan);
+      outline: none;
+    }
+
     /* RESPONSIVE */
 
     @media (max-width: 950px) {
@@ -644,6 +790,12 @@
         height: auto;
         aspect-ratio: 16 / 9;
         object-fit: cover;
+      }
+
+      .floating-visual-overlay {
+        opacity: 0.48;
+        height: 70vh;
+        top: 92px;
       }
     }
 
@@ -676,11 +828,56 @@
       .hero-concept-video {
         border-radius: 20px;
       }
+
+      .floating-visual-overlay {
+        display: none;
+      }
+
+      .sound-dock {
+        right: 10px;
+        bottom: 10px;
+      }
+
+      .sound-btn {
+        min-height: 40px;
+        padding: 0 12px;
+      }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- VERSION 3.0: transparent visual layer.
+       Keep this PNG with its full transparent canvas; do not trim it. -->
+  <img
+    class="floating-visual-overlay"
+    src="a10-floating-visual-strip.png"
+    alt=""
+    aria-hidden="true"
+  >
+
+  <!-- Optional ambient track. Browsers require user interaction before audible playback. -->
+  <audio
+    id="ambientAudio"
+    src="a10-labs-ambient.m4a"
+    loop
+    preload="metadata"
+  ></audio>
+
+  <div class="sound-dock" aria-label="Audio controls">
+    <button
+      class="sound-btn"
+      id="ambientToggle"
+      type="button"
+      aria-pressed="false"
+    >
+      Ambient · Off
+    </button>
+
+    
+  </div>
+
 
   <header>
     <div class="wrap nav">
@@ -1167,10 +1364,16 @@
 
         <div class="novaverse-banner">
 
-          <img
-            src="novaverse-saga-banner.PNG"
-            alt="NovaVerse Saga — Science Fiction Universe"
+          <button
+            id="novaverseZoomTrigger"
+            type="button"
+            aria-label="Open NovaVerse Saga banner in full-screen view"
           >
+            <img
+              src="novaverse-saga-banner.PNG"
+              alt="NovaVerse Saga — Science Fiction Universe"
+            >
+          </button>
 
         </div>
 
@@ -1490,6 +1693,31 @@
 
     </section>
 
+
+    <div
+      class="image-lightbox"
+      id="novaverseLightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="NovaVerse Saga banner expanded"
+    >
+      <div class="image-lightbox-inner">
+        <button
+          class="lightbox-close"
+          id="lightboxClose"
+          type="button"
+          aria-label="Close image"
+        >
+          ×
+        </button>
+
+        <img
+          src="novaverse-saga-banner.PNG"
+          alt="NovaVerse Saga — Science Fiction Universe"
+        >
+      </div>
+    </div>
+
   </main>
 
 
@@ -1515,6 +1743,105 @@
     </div>
 
   </footer>
+
+
+  <script>
+    (() => {
+      const ambientAudio = document.getElementById("ambientAudio");
+      const ambientToggle = document.getElementById("ambientToggle");
+      const heroVideo = document.querySelector(".hero-concept-video");
+
+      const zoomTrigger = document.getElementById("novaverseZoomTrigger");
+      const lightbox = document.getElementById("novaverseLightbox");
+      const lightboxClose = document.getElementById("lightboxClose");
+
+      let ambientOn = false;
+      let lastFocusedElement = null;
+
+      function setAmbientUI() {
+        ambientToggle.classList.toggle("is-on", ambientOn);
+        ambientToggle.setAttribute("aria-pressed", String(ambientOn));
+        ambientToggle.textContent = ambientOn
+          ? "Ambient · On"
+          : "Ambient · Off";
+      }
+
+      ambientToggle.addEventListener("click", async () => {
+        try {
+          if (ambientAudio.paused) {
+            ambientAudio.volume = 0.28;
+            await ambientAudio.play();
+            ambientOn = true;
+          } else {
+            ambientAudio.pause();
+            ambientOn = false;
+          }
+        } catch (error) {
+          ambientOn = false;
+          console.warn("Ambient audio could not start:", error);
+        }
+
+        setAmbientUI();
+      });
+
+      function setVideoSoundUI() {
+        if (!heroVideo) return;
+
+        const soundOn = !heroVideo.muted;
+        videoSoundToggle.classList.toggle("is-on", soundOn);
+        videoSoundToggle.setAttribute("aria-pressed", String(soundOn));
+        videoSoundToggle.textContent = soundOn
+          ? "Video Sound · On"
+          : "Video Sound · Off";
+      }
+
+      videoSoundToggle.addEventListener("click", async () => {
+        if (!heroVideo) return;
+
+        heroVideo.muted = !heroVideo.muted;
+
+        if (!heroVideo.muted && heroVideo.paused) {
+          try {
+            await heroVideo.play();
+          } catch (error) {
+            heroVideo.muted = true;
+            console.warn("Video audio could not start:", error);
+          }
+        }
+
+        setVideoSoundUI();
+      });
+
+      function openLightbox() {
+        lastFocusedElement = document.activeElement;
+        lightbox.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        lightboxClose.focus();
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove("is-open");
+        document.body.style.overflow = "";
+        if (lastFocusedElement) lastFocusedElement.focus();
+      }
+
+      zoomTrigger.addEventListener("click", openLightbox);
+      lightboxClose.addEventListener("click", closeLightbox);
+
+      lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox) closeLightbox();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+          closeLightbox();
+        }
+      });
+
+      setAmbientUI();
+      setVideoSoundUI();
+    })();
+  </script>
 
 </body>
 </html>
