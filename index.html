@@ -2,7 +2,7 @@
 <!--
 ==========================================================
 A-10 C.O. RESEARCH LABS™
-WEBSITE V3.3
+WEBSITE V3.4
 September 2026
 ==========================================================
 
@@ -356,170 +356,51 @@ william-atencio-founder.png
     ====================================================== */
 
     .prototype-background-zone {
-
       position: absolute;
-
       top: 0;
-
       right: 0;
-
+      bottom: 0;
       width: 100%;
-
-      height: 100%;
-
-      min-height: 700vh;
-
       overflow: hidden;
-
       pointer-events: none;
-
       z-index: 0;
-
     }
-
 
     .prototype-background-zone::before {
-
       content: "";
-
       position: absolute;
-
-      top: 0;
-
-      right: -2vw;
-
-      width:
-        min(
-          58vw,
-          440px
-        );
-
-      height: 100%;
-
-      background-image:
-        url("/a10-floating-visual-strip.png");
-
-      background-repeat:
-        repeat-y;
-
-      background-position:
-        right top;
-
-      background-size:
-        100% auto;
-
+      inset: 0 -2vw 0 auto;
+      width: min(58vw, 440px);
+      background-image: url("a10-floating-visual-strip.png"), url("/a10-floating-visual-strip.png");
+      background-repeat: repeat-y, repeat-y;
+      background-position: right top, right top;
+      background-size: 100% auto, 100% auto;
       opacity: 0.80;
-
       pointer-events: none;
-
       filter:
-
-        drop-shadow(
-          0 0 18px
-          rgba(
-            73,
-            232,
-            255,
-            0.12
-          )
-        )
-
-        drop-shadow(
-          0 0 45px
-          rgba(
-            23,
-            141,
-            255,
-            0.10
-          )
-        );
-
-      -webkit-mask-image:
-
-        linear-gradient(
-          to right,
-
-          transparent 0%,
-
-          rgba(
-            0,
-            0,
-            0,
-            0.08
-          ) 6%,
-
-          rgba(
-            0,
-            0,
-            0,
-            0.20
-          ) 12%,
-
-          rgba(
-            0,
-            0,
-            0,
-            0.45
-          ) 20%,
-
-          rgba(
-            0,
-            0,
-            0,
-            0.72
-          ) 30%,
-
-          #000 43%,
-
-          #000 100%
-
-        );
-
-
-      mask-image:
-
-        linear-gradient(
-          to right,
-
-          transparent 0%,
-
-          rgba(
-            0,
-            0,
-            0,
-            0.08
-          ) 6%,
-
-          rgba(
-            0,
-            0,
-            0,
-            0.20
-          ) 12%,
-
-          rgba(
-            0,
-            0,
-            0,
-            0.45
-          ) 20%,
-
-          rgba(
-            0,
-            0,
-            0,
-            0.72
-          ) 30%,
-
-          #000 43%,
-
-          #000 100%
-
-        );
-
+        drop-shadow(0 0 18px rgba(73,232,255,.12))
+        drop-shadow(0 0 45px rgba(23,141,255,.10));
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(0,0,0,.08) 6%,
+        rgba(0,0,0,.20) 12%,
+        rgba(0,0,0,.45) 20%,
+        rgba(0,0,0,.72) 30%,
+        #000 43%,
+        #000 100%
+      );
+      mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(0,0,0,.08) 6%,
+        rgba(0,0,0,.20) 12%,
+        rgba(0,0,0,.45) 20%,
+        rgba(0,0,0,.72) 30%,
+        #000 43%,
+        #000 100%
+      );
     }
-
-
 
     /* ======================================================
        MAIN CONTENT ABOVE PROTOTYPE STRIP
@@ -1308,20 +1189,28 @@ william-atencio-founder.png
     }
 
 
+    .atencia-logo-wrap {
+      overflow: hidden;
+    }
+
     .atencia-logo-wrap img {
+      width: 100%;
+      max-width: 480px;
+      margin: auto;
+      border-radius: 18px;
+      transform: scale(.86);
+      transform-origin: center center;
+      transition: transform 1.15s cubic-bezier(.2,.72,.2,1), filter .45s ease;
+      will-change: transform;
+    }
 
-      width:
-        100%;
+    .atencia-logo-wrap.is-visible img {
+      transform: scale(1);
+    }
 
-      max-width:
-        480px;
-
-      margin:
-        auto;
-
-      border-radius:
-        18px;
-
+    .atencia-logo-wrap:hover img {
+      transform: scale(1.035);
+      filter: brightness(1.06);
     }
 
 
@@ -1434,28 +1323,21 @@ william-atencio-founder.png
 
 
     .novaverse-banner img {
-
-      width:
-        100%;
-
-      height:
-        auto;
-
-      transition:
-        transform 0.35s ease,
-        filter 0.35s ease;
-
+      width: 100%;
+      height: auto;
+      transform: scale(.88);
+      transform-origin: center center;
+      transition: transform 1.15s cubic-bezier(.2,.72,.2,1), filter .45s ease;
+      will-change: transform;
     }
 
+    .novaverse-banner.is-visible img {
+      transform: scale(1);
+    }
 
     .novaverse-banner button:hover img {
-
-      transform:
-        scale(1.012);
-
-      filter:
-        brightness(1.05);
-
+      transform: scale(1.035);
+      filter: brightness(1.06);
     }
 
 
@@ -2527,23 +2409,11 @@ william-atencio-founder.png
        MP3 FIRST FOR MAXIMUM SAFARI COMPATIBILITY
   ===================================================== -->
 
-  <audio
-    id="ambientAudio"
-    preload="auto"
-    loop
-    playsinline
-  >
-
-    <source
-      src="/a10-labs-ambient-compatible.mp3"
-      type="audio/mpeg"
-    >
-
-    <source
-      src="/a10-labs-ambient-compatible.m4a"
-      type="audio/mp4"
-    >
-
+  <audio id="ambientAudio" preload="auto" loop playsinline>
+    <source src="a10-labs-ambient-compatible.mp3" type="audio/mpeg">
+    <source src="/a10-labs-ambient-compatible.mp3" type="audio/mpeg">
+    <source src="a10-labs-ambient-compatible.m4a" type="audio/mp4">
+    <source src="/a10-labs-ambient-compatible.m4a" type="audio/mp4">
   </audio>
 
 
@@ -2757,21 +2627,17 @@ william-atencio-founder.png
             id="heroVideo"
             autoplay
             muted
-            defaultmuted
             loop
             playsinline
             webkit-playsinline
             preload="auto"
+            disablepictureinpicture
             aria-label="AtencIA conceptual intelligent environment visualization"
           >
-
-            <source
-              src="/atencia-concept-video.mp4"
-              type="video/mp4"
-            >
-
+            <source src="atencia-concept-video.mp4" type="video/mp4">
+            <source src="/atencia-concept-video.mp4" type="video/mp4">
+            <source src="assets/atencia-concept-video.mp4" type="video/mp4">
             Your browser does not support HTML5 video.
-
           </video>
 
 
@@ -4175,6 +4041,9 @@ william-atencio-founder.png
           "lightboxClose"
         );
 
+      const atenciaLogoWrap = document.querySelector(".atencia-logo-wrap");
+      const novaverseBanner = document.querySelector(".novaverse-banner");
+
 
       let ambientOn =
         false;
@@ -4458,163 +4327,61 @@ william-atencio-founder.png
 
 
       /* ==================================================
-         VIDEO
-         ALWAYS MUTED
+         VIDEO — ALWAYS MUTED + INFINITE LOOP
       ================================================== */
 
-      if (
-        heroVideo
-      ) {
+      if (heroVideo) {
+        heroVideo.muted = true;
+        heroVideo.defaultMuted = true;
+        heroVideo.volume = 0;
+        heroVideo.loop = true;
+        heroVideo.playsInline = true;
+        heroVideo.setAttribute("muted", "");
+        heroVideo.setAttribute("playsinline", "");
+        heroVideo.setAttribute("webkit-playsinline", "");
 
+        const tryPlayVideo = () => {
+          heroVideo.muted = true;
+          const p = heroVideo.play();
+          if (p && typeof p.catch === "function") {
+            p.catch(error => console.warn("Hero video autoplay failed:", error));
+          }
+        };
 
-        heroVideo.muted =
-          true;
+        heroVideo.addEventListener("loadedmetadata", tryPlayVideo);
+        heroVideo.addEventListener("loadeddata", tryPlayVideo);
+        heroVideo.addEventListener("canplay", tryPlayVideo);
+        heroVideo.addEventListener("ended", () => {
+          heroVideo.currentTime = 0;
+          tryPlayVideo();
+        });
+        heroVideo.addEventListener("error", event => {
+          console.error("Hero video failed to load:", event);
+        });
 
+        window.addEventListener("pageshow", tryPlayVideo);
+        document.addEventListener("visibilitychange", () => {
+          if (document.visibilityState === "visible") tryPlayVideo();
+        });
 
-        heroVideo.defaultMuted =
-          true;
-
-
-        heroVideo.volume =
-          0;
-
-
-        heroVideo.setAttribute(
-          "muted",
-          ""
-        );
-
-
-        heroVideo.setAttribute(
-          "playsinline",
-          ""
-        );
-
-
-        heroVideo.setAttribute(
-          "webkit-playsinline",
-          ""
-        );
-
-
-
-        const tryPlayVideo =
-          async () => {
-
-
-            try {
-
-
-              const playback =
-                heroVideo.play();
-
-
-              if (
-                playback
-              ) {
-
-                await playback;
-
-              }
-
-
-            }
-
-            catch (
-              error
-            ) {
-
-
-              console.warn(
-                "Hero video autoplay failed:",
-                error
-              );
-
-
-            }
-
-
-          };
-
-
-
-        heroVideo
-          .addEventListener(
-            "loadedmetadata",
-            tryPlayVideo
-          );
-
-
-        heroVideo
-          .addEventListener(
-            "loadeddata",
-            tryPlayVideo
-          );
-
-
-        heroVideo
-          .addEventListener(
-            "canplay",
-            tryPlayVideo
-          );
-
-
-        heroVideo
-          .addEventListener(
-            "error",
-            event => {
-
-
-              console.error(
-                "Hero video failed to load:",
-                event
-              );
-
-
-            }
-          );
-
-
-        window
-          .addEventListener(
-            "pageshow",
-            tryPlayVideo
-          );
-
-
-        document
-          .addEventListener(
-            "visibilitychange",
-            () => {
-
-
-              if (
-                document.visibilityState ===
-                "visible"
-              ) {
-
-
-                tryPlayVideo();
-
-
-              }
-
-
-            }
-          );
-
-
-        /*
-        Immediate attempt after DOM creation.
-        */
-
-
-        tryPlayVideo();
-
-
+        setTimeout(tryPlayVideo, 150);
       }
 
+      /* ==================================================
+         SCROLL ZOOM — ATENCIA + NOVAVERSE
+      ================================================== */
 
+      const zoomObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add("is-visible");
+          });
+        },
+        { threshold: 0.28 }
+      );
+
+      if (atenciaLogoWrap) zoomObserver.observe(atenciaLogoWrap);
+      if (novaverseBanner) zoomObserver.observe(novaverseBanner);
 
       /* ==================================================
          LIGHTBOX
