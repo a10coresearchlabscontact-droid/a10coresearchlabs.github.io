@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- A-10 C.O. Research Labs™ — Website Version 3.0 | Clean Production Build -->
+<!-- A-10 C.O. Research Labs™ — Website Version 3.2 (Exact Assets) -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -17,11 +17,8 @@
   <style>
     :root {
       --bg: #020711;
-      --bg-soft: #06101c;
       --panel: rgba(8, 20, 36, 0.82);
-      --panel-strong: rgba(10, 27, 48, 0.95);
       --cyan: #49e8ff;
-      --blue: #178dff;
       --white: #f5fbff;
       --muted: #9eb3c7;
       --line: rgba(73, 232, 255, 0.16);
@@ -56,6 +53,7 @@
         sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
+      position: relative;
     }
 
     a {
@@ -66,6 +64,12 @@
     img {
       max-width: 100%;
       display: block;
+    }
+
+    button,
+    input,
+    textarea {
+      font-family: inherit;
     }
 
     .wrap {
@@ -133,6 +137,51 @@
       color: var(--cyan);
     }
 
+    /* PROTOTYPE STRIP — LARGE BACKGROUND LAYER */
+
+    .prototype-background-zone {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 340vh;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .floating-visual-overlay {
+      position: absolute;
+      top: 16vh;
+      right: -7vw;
+      width: 175vw;
+      height: auto;
+      max-width: none;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.72;
+      mix-blend-mode: screen;
+      filter:
+        drop-shadow(0 0 20px rgba(73, 232, 255, 0.10))
+        drop-shadow(0 0 50px rgba(23, 141, 255, 0.08));
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+    }
+
+    main > section {
+      position: relative;
+      z-index: 2;
+      background: transparent;
+    }
+
+    main > section .wrap {
+      position: relative;
+      z-index: 3;
+    }
+
     /* HERO */
 
     .hero {
@@ -182,6 +231,7 @@
     h1 span {
       background: linear-gradient(90deg, #ffffff, #57efff, #198fff);
       -webkit-background-clip: text;
+      background-clip: text;
       color: transparent;
     }
 
@@ -230,7 +280,7 @@
       transform: translateY(-2px);
     }
 
-    /* HERO VIDEO */
+    /* VIDEO */
 
     .hero-panel {
       background:
@@ -240,6 +290,8 @@
       box-shadow:
         0 30px 80px rgba(0,0,0,.35),
         inset 0 0 45px rgba(73,232,255,.035);
+      position: relative;
+      z-index: 6;
     }
 
     .video-panel {
@@ -251,7 +303,6 @@
 
     .hero-concept-video {
       width: 100%;
-      height: 100%;
       min-height: 520px;
       display: block;
       object-fit: cover;
@@ -326,7 +377,7 @@
       border-bottom: 0;
     }
 
-    /* PILLARS / FOCUS */
+    /* PILLARS */
 
     .cards {
       display: grid;
@@ -366,6 +417,8 @@
       color: var(--muted);
       font-size: 14px;
     }
+
+    /* FOCUS */
 
     .focus-grid {
       display: grid;
@@ -444,9 +497,25 @@
       box-shadow: 0 25px 80px rgba(0,0,0,.35);
     }
 
+    .novaverse-banner button {
+      width: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      display: block;
+      background: transparent;
+      cursor: zoom-in;
+    }
+
     .novaverse-banner img {
       width: 100%;
       height: auto;
+      transition: transform .35s ease, filter .35s ease;
+    }
+
+    .novaverse-banner button:hover img {
+      transform: scale(1.012);
+      filter: brightness(1.05);
     }
 
     .novaverse-copy {
@@ -561,7 +630,6 @@
       border: 1px solid var(--line-strong);
       background: #06101c;
       color: white;
-      font-family: inherit;
       outline: none;
     }
 
@@ -591,7 +659,6 @@
       color: white;
     }
 
-    .info-block span,
     .info-block p {
       color: var(--muted);
     }
@@ -620,36 +687,13 @@
       color: #d9e8f2;
     }
 
+    /* AUDIO */
 
-    /* VERSION 3.0 — FLOATING VISUAL OVERLAY */
-
-    .floating-visual-overlay {
-      position: fixed;
-      top: 78px;
-      right: 0;
-      height: calc(100vh - 78px);
-      width: auto;
-      max-width: none;
-      z-index: 20;
-      pointer-events: none;
-      user-select: none;
-      opacity: 0.82;
-      filter:
-        drop-shadow(0 0 16px rgba(73, 232, 255, 0.08))
-        drop-shadow(0 0 32px rgba(23, 141, 255, 0.05));
-      transform: translateZ(0);
-    }
-
-    /* Floating page audio controls */
     .sound-dock {
       position: fixed;
       right: 18px;
       bottom: 18px;
       z-index: 1200;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      align-items: flex-end;
     }
 
     .sound-btn {
@@ -660,7 +704,6 @@
       background: rgba(2, 7, 17, 0.90);
       backdrop-filter: blur(14px);
       color: #dffbff;
-      font-family: inherit;
       font-size: 10px;
       font-weight: 800;
       letter-spacing: .10em;
@@ -679,35 +722,21 @@
     }
 
     .sound-btn.is-on {
-      background: linear-gradient(90deg, rgba(35,216,255,.95), rgba(19,134,255,.95));
+      background: linear-gradient(
+        90deg,
+        rgba(35,216,255,.95),
+        rgba(19,134,255,.95)
+      );
       color: #00101d;
       border-color: transparent;
     }
 
-    /* NovaVerse click-to-zoom */
-    .novaverse-banner button {
-      width: 100%;
-      border: 0;
-      padding: 0;
-      margin: 0;
-      display: block;
-      background: transparent;
-      cursor: zoom-in;
+    .sound-btn.has-error {
+      border-color: rgba(255, 115, 115, .65);
+      color: #ffd0d0;
     }
 
-    .novaverse-banner button:focus-visible {
-      outline: 2px solid var(--cyan);
-      outline-offset: -4px;
-    }
-
-    .novaverse-banner img {
-      transition: transform .35s ease, filter .35s ease;
-    }
-
-    .novaverse-banner button:hover img {
-      transform: scale(1.012);
-      filter: brightness(1.05);
-    }
+    /* LIGHTBOX */
 
     .image-lightbox {
       position: fixed;
@@ -759,12 +788,6 @@
       place-items: center;
     }
 
-    .lightbox-close:hover,
-    .lightbox-close:focus-visible {
-      border-color: var(--cyan);
-      outline: none;
-    }
-
     /* RESPONSIVE */
 
     @media (max-width: 950px) {
@@ -787,15 +810,18 @@
 
       .hero-concept-video {
         min-height: 0;
-        height: auto;
         aspect-ratio: 16 / 9;
-        object-fit: cover;
+      }
+
+      .prototype-background-zone {
+        height: 335vh;
       }
 
       .floating-visual-overlay {
-        opacity: 0.48;
-        height: 70vh;
-        top: 92px;
+        top: 24vh;
+        right: -5vw;
+        width: 215vw;
+        opacity: 0.65;
       }
     }
 
@@ -829,8 +855,15 @@
         border-radius: 20px;
       }
 
+      .prototype-background-zone {
+        height: 330vh;
+      }
+
       .floating-visual-overlay {
-        display: none;
+        top: 28vh;
+        right: -7vw;
+        width: 230vw;
+        opacity: 0.56;
       }
 
       .sound-dock {
@@ -848,24 +881,38 @@
 
 <body>
 
-  <!-- VERSION 3.0: transparent visual layer.
-       Keep this PNG with its full transparent canvas; do not trim it. -->
-  <img
-    class="floating-visual-overlay"
-    src="a10-floating-visual-strip.png"
-    alt=""
-    aria-hidden="true"
+  <!-- LARGE BACKGROUND PROTOTYPE STRIP -->
+
+  <div class="prototype-background-zone" aria-hidden="true">
+    <img
+      class="floating-visual-overlay"
+      id="floatingVisualOverlay"
+      src="a10-floating-visual-strip.png"
+      alt=""
+    >
+  </div>
+
+  <!-- AMBIENT MUSIC -->
+
+  <audio id="ambientAudio" loop preload="auto">
+
+    <source
+      src="a10-labs-ambient-compatible.m4a"
+      type="audio/mp4"
+    >
+
+    <source
+      src="a10-labs-ambient-compatible.mp3"
+      type="audio/mpeg"
+    >
+
+  </audio>
+
+  <div
+    class="sound-dock"
+    aria-label="Audio controls"
   >
 
-  <!-- Version 3.0 ambient soundtrack: a10-labs-ambient.m4a. Browsers require user interaction before audible playback. -->
-  <audio
-    id="ambientAudio"
-    src="a10-labs-ambient.m4a"
-    loop
-    preload="metadata"
-  ></audio>
-
-  <div class="sound-dock" aria-label="Audio controls">
     <button
       class="sound-btn"
       id="ambientToggle"
@@ -875,11 +922,12 @@
       Ambient · Off
     </button>
 
-    
   </div>
 
+  <!-- HEADER -->
 
   <header>
+
     <div class="wrap nav">
 
       <a class="brand" href="#home">
@@ -898,12 +946,17 @@
       </nav>
 
     </div>
-  </header>
 
+  </header>
 
   <main>
 
-    <section class="hero" id="home">
+    <!-- HERO -->
+
+    <section
+      class="hero"
+      id="home"
+    >
 
       <div class="wrap hero-grid">
 
@@ -931,15 +984,24 @@
 
           <div class="hero-actions">
 
-            <a class="btn primary" href="#atencia">
+            <a
+              class="btn primary"
+              href="#atencia"
+            >
               Explore AtencIA
             </a>
 
-            <a class="btn" href="#focus">
+            <a
+              class="btn"
+              href="#focus"
+            >
               Research Areas
             </a>
 
-            <a class="btn" href="#contact">
+            <a
+              class="btn"
+              href="#contact"
+            >
               Collaborate
             </a>
 
@@ -947,19 +1009,23 @@
 
         </div>
 
-
         <div class="hero-panel video-panel">
 
-          <!-- Concept video remains intentionally silent; ambient audio is controlled separately. -->
           <video
             class="hero-concept-video"
+            id="heroVideo"
             autoplay
             muted
             loop
             playsinline
-            preload="metadata"
+            preload="auto"
             aria-label="AtencIA conceptual intelligent environment visualization"
           >
+
+            <source
+              src="atencia-concept-video.mp4"
+              type="video/mp4"
+            >
 
             <source
               src="assets/atencia-concept-video.mp4"
@@ -976,6 +1042,7 @@
 
     </section>
 
+    <!-- ABOUT -->
 
     <section id="about">
 
@@ -1022,10 +1089,11 @@
 
         </div>
 
-
         <div class="about-card">
 
-          <h3>Research Identity</h3>
+          <h3>
+            Research Identity
+          </h3>
 
           <ul>
             <li>Artificial Intelligence</li>
@@ -1044,6 +1112,7 @@
 
     </section>
 
+    <!-- PILLARS -->
 
     <section id="pillars">
 
@@ -1062,7 +1131,6 @@
           human-centered systems, applied interoperability and
           long-term digital continuity.
         </p>
-
 
         <div class="cards">
 
@@ -1085,7 +1153,6 @@
 
           </article>
 
-
           <article class="card">
 
             <div class="card-number">
@@ -1105,7 +1172,6 @@
 
           </article>
 
-
           <article class="card">
 
             <div class="card-number">
@@ -1124,7 +1190,6 @@
             </p>
 
           </article>
-
 
           <article class="card">
 
@@ -1151,6 +1216,7 @@
 
     </section>
 
+    <!-- FOCUS -->
 
     <section id="focus">
 
@@ -1170,97 +1236,61 @@
           its research agenda into prototypes and future products.
         </p>
 
-
         <div class="focus-grid">
 
           <article class="focus-card">
-
-            <h3>
-              Contextual Intelligence
-            </h3>
-
+            <h3>Contextual Intelligence</h3>
             <p>
               Architectures capable of understanding user context,
               preferences, relationships, history and intent across
               interactions.
             </p>
-
           </article>
 
-
           <article class="focus-card">
-
-            <h3>
-              Technology Abstraction & Interoperability
-            </h3>
-
+            <h3>Technology Abstraction & Interoperability</h3>
             <p>
               Research into modular layers that allow intelligent
               systems to communicate with heterogeneous devices,
               services and native technological platforms.
             </p>
-
           </article>
 
-
           <article class="focus-card">
-
-            <h3>
-              Human–AI Continuity
-            </h3>
-
+            <h3>Human–AI Continuity</h3>
             <p>
               Persistent intelligent systems designed around
               continuity of relationship rather than dependence on a
               single device, avatar or physical embodiment.
             </p>
-
           </article>
 
-
           <article class="focus-card">
-
-            <h3>
-              Intelligent Environments
-            </h3>
-
+            <h3>Intelligent Environments</h3>
             <p>
               Exploration of how contextual intelligence may operate
               across homes, mobility, wearables, digital platforms
               and future technological environments.
             </p>
-
           </article>
 
-
           <article class="focus-card">
-
-            <h3>
-              Ethics, Foresight & Governance
-            </h3>
-
+            <h3>Ethics, Foresight & Governance</h3>
             <p>
               Examination of ethical, social and governance questions
               surrounding persistent intelligent systems,
               technological identity and long-term human–AI
               interaction.
             </p>
-
           </article>
 
-
           <article class="focus-card">
-
-            <h3>
-              Applied Prototyping
-            </h3>
-
+            <h3>Applied Prototyping</h3>
             <p>
               Translation of selected architectural concepts into
               functional software prototypes, interfaces and
               technology demonstrations.
             </p>
-
           </article>
 
         </div>
@@ -1269,8 +1299,12 @@
 
     </section>
 
+    <!-- ATENCIA -->
 
-    <section class="atencia" id="atencia">
+    <section
+      class="atencia"
+      id="atencia"
+    >
 
       <div class="wrap atencia-grid">
 
@@ -1282,7 +1316,6 @@
           >
 
         </div>
-
 
         <div class="atencia-copy">
 
@@ -1340,6 +1373,7 @@
 
     </section>
 
+    <!-- NOVAVERSE -->
 
     <section id="novaverse">
 
@@ -1362,7 +1396,6 @@
           intelligent systems and emerging technologies.
         </p>
 
-
         <div class="novaverse-banner">
 
           <button
@@ -1370,14 +1403,15 @@
             type="button"
             aria-label="Open NovaVerse Saga banner in full-screen view"
           >
+
             <img
               src="novaverse-saga-banner.PNG"
               alt="NovaVerse Saga — Science Fiction Universe"
             >
+
           </button>
 
         </div>
-
 
         <div class="novaverse-copy">
 
@@ -1403,6 +1437,7 @@
 
     </section>
 
+    <!-- FOUNDER -->
 
     <section id="founder">
 
@@ -1416,7 +1451,6 @@
           Research leadership.
         </h2>
 
-
         <div class="founder-grid">
 
           <div class="founder-photo">
@@ -1427,7 +1461,6 @@
             >
 
           </div>
-
 
           <div class="founder-copy">
 
@@ -1458,7 +1491,6 @@
               A-10 C.O. Research Labs™.
             </p>
 
-
             <a
               class="orcid"
               href="https://orcid.org/0009-0006-4161-9725"
@@ -1477,6 +1509,7 @@
 
     </section>
 
+    <!-- CONTACT -->
 
     <section id="contact">
 
@@ -1499,7 +1532,6 @@
           architectures.
         </p>
 
-
         <div class="contact-box">
 
           <div class="contact-card">
@@ -1508,11 +1540,15 @@
               Academic, Industry & Media Inquiries
             </strong>
 
-            <p style="color:var(--muted); margin:10px 0 22px;">
+            <p
+              style="
+                color:var(--muted);
+                margin:10px 0 22px;
+              "
+            >
               Tell us how you would like to collaborate with
               A-10 C.O. Research Labs™.
             </p>
-
 
             <form
               action="mailto:a10c.o.researchlabs.contact@gmail.com"
@@ -1532,7 +1568,6 @@
                 required
               >
 
-
               <label for="email">
                 E-mail
               </label>
@@ -1544,7 +1579,6 @@
                 placeholder="you@example.com"
                 required
               >
-
 
               <label for="message">
                 Message
@@ -1558,7 +1592,6 @@
                 required
               ></textarea>
 
-
               <button
                 type="submit"
                 class="btn primary"
@@ -1571,13 +1604,11 @@
 
           </div>
 
-
           <div class="contact-card">
 
             <strong>
               Official Research Lab
             </strong>
-
 
             <div class="official-info">
 
@@ -1594,7 +1625,6 @@
 
               </div>
 
-
               <div class="info-block">
 
                 <strong>
@@ -1607,7 +1637,6 @@
 
               </div>
 
-
               <div class="info-block">
 
                 <strong>
@@ -1615,6 +1644,7 @@
                 </strong>
 
                 <p>
+
                   <a
                     href="https://orcid.org/0009-0006-4161-9725"
                     target="_blank"
@@ -1622,10 +1652,10 @@
                   >
                     0009-0006-4161-9725
                   </a>
+
                 </p>
 
               </div>
-
 
               <div class="info-block">
 
@@ -1634,13 +1664,16 @@
                 </strong>
 
                 <p>
-                  <a href="mailto:a10c.o.researchlabs.contact@gmail.com">
+
+                  <a
+                    href="mailto:a10c.o.researchlabs.contact@gmail.com"
+                  >
                     a10c.o.researchlabs.contact@gmail.com
                   </a>
+
                 </p>
 
               </div>
-
 
               <div class="info-block">
 
@@ -1654,7 +1687,6 @@
 
               </div>
 
-
               <div class="info-block">
 
                 <strong>
@@ -1666,7 +1698,6 @@
                 </p>
 
               </div>
-
 
               <div
                 class="info-block"
@@ -1694,6 +1725,7 @@
 
     </section>
 
+    <!-- NOVAVERSE LIGHTBOX -->
 
     <div
       class="image-lightbox"
@@ -1702,7 +1734,9 @@
       aria-modal="true"
       aria-label="NovaVerse Saga banner expanded"
     >
+
       <div class="image-lightbox-inner">
+
         <button
           class="lightbox-close"
           id="lightboxClose"
@@ -1716,11 +1750,14 @@
           src="novaverse-saga-banner.PNG"
           alt="NovaVerse Saga — Science Fiction Universe"
         >
+
       </div>
+
     </div>
 
   </main>
 
+  <!-- FOOTER -->
 
   <footer>
 
@@ -1745,71 +1782,346 @@
 
   </footer>
 
+  <!-- JAVASCRIPT -->
 
   <script>
     (() => {
-      const ambientAudio = document.getElementById("ambientAudio");
-      const ambientToggle = document.getElementById("ambientToggle");
-      const zoomTrigger = document.getElementById("novaverseZoomTrigger");
-      const lightbox = document.getElementById("novaverseLightbox");
-      const lightboxClose = document.getElementById("lightboxClose");
+
+      const ambientAudio =
+        document.getElementById("ambientAudio");
+
+      const ambientToggle =
+        document.getElementById("ambientToggle");
+
+      const heroVideo =
+        document.getElementById("heroVideo");
+
+      const floatingVisualOverlay =
+        document.getElementById("floatingVisualOverlay");
+
+      const zoomTrigger =
+        document.getElementById("novaverseZoomTrigger");
+
+      const lightbox =
+        document.getElementById("novaverseLightbox");
+
+      const lightboxClose =
+        document.getElementById("lightboxClose");
 
       let ambientOn = false;
       let lastFocusedElement = null;
 
-      function setAmbientUI() {
-        ambientToggle.classList.toggle("is-on", ambientOn);
-        ambientToggle.setAttribute("aria-pressed", String(ambientOn));
-        ambientToggle.textContent = ambientOn
-          ? "Ambient · On"
-          : "Ambient · Off";
-      }
+      /* AUDIO */
 
-      ambientToggle.addEventListener("click", async () => {
-        try {
-          if (ambientAudio.paused) {
-            ambientAudio.volume = 0.28;
-            await ambientAudio.play();
-            ambientOn = true;
-          } else {
-            ambientAudio.pause();
-            ambientOn = false;
-          }
-        } catch (error) {
-          ambientOn = false;
-          console.warn("Ambient audio could not start:", error);
+      function setAmbientUI(message = "") {
+
+        if (!ambientToggle) return;
+
+        ambientToggle.classList.toggle(
+          "is-on",
+          ambientOn
+        );
+
+        ambientToggle.classList.toggle(
+          "has-error",
+          Boolean(message)
+        );
+
+        ambientToggle.setAttribute(
+          "aria-pressed",
+          String(ambientOn)
+        );
+
+        if (message) {
+
+          ambientToggle.textContent =
+            "Ambient · File Missing";
+
+          ambientToggle.title =
+            message;
+
+        } else {
+
+          ambientToggle.textContent =
+            ambientOn
+              ? "Ambient · On"
+              : "Ambient · Off";
+
+          ambientToggle.title = "";
+
         }
 
-        setAmbientUI();
-      });
+      }
+
+      if (
+        ambientToggle &&
+        ambientAudio
+      ) {
+
+        ambientToggle.addEventListener(
+          "click",
+          async () => {
+
+            if (
+              !ambientAudio.paused
+            ) {
+
+              ambientAudio.pause();
+
+              ambientOn = false;
+
+              setAmbientUI();
+
+              return;
+
+            }
+
+            ambientToggle.textContent =
+              "Ambient · Loading";
+
+            ambientAudio.volume =
+              0.34;
+
+            try {
+
+              await ambientAudio.play();
+
+              ambientOn = true;
+
+              setAmbientUI();
+
+            } catch (error) {
+
+              console.warn(
+                "Ambient audio failed:",
+                error
+              );
+
+              ambientOn = false;
+
+              setAmbientUI(
+                "Could not play ambient music. Keep a10-labs-ambient-compatible.m4a or a10-labs-ambient-compatible.mp3 beside index.html."
+              );
+
+            }
+
+          }
+        );
+
+      }
+
+      /* HERO VIDEO */
+
+      if (heroVideo) {
+
+        heroVideo.muted = true;
+        heroVideo.defaultMuted = true;
+        heroVideo.volume = 0;
+        heroVideo.playsInline = true;
+
+        const ensureVideoPlayback = () => {
+
+          const playback =
+            heroVideo.play();
+
+          if (
+            playback &&
+            typeof playback.catch === "function"
+          ) {
+
+            playback.catch(
+              error => {
+
+                console.warn(
+                  "Muted hero video autoplay was blocked:",
+                  error
+                );
+
+              }
+            );
+
+          }
+
+        };
+
+        if (
+          heroVideo.readyState >= 2
+        ) {
+
+          ensureVideoPlayback();
+
+        }
+
+        heroVideo.addEventListener(
+          "loadeddata",
+          ensureVideoPlayback
+        );
+
+        heroVideo.addEventListener(
+          "canplay",
+          ensureVideoPlayback
+        );
+
+        window.addEventListener(
+          "pageshow",
+          ensureVideoPlayback
+        );
+
+        document.addEventListener(
+          "visibilitychange",
+          () => {
+
+            if (
+              document.visibilityState === "visible"
+            ) {
+
+              ensureVideoPlayback();
+
+            }
+
+          }
+        );
+
+      }
+
+      /* OVERLAY FALLBACK */
+
+      if (floatingVisualOverlay) {
+
+        floatingVisualOverlay.addEventListener(
+          "error",
+          () => {
+
+            if (
+              !floatingVisualOverlay.dataset.fallbackTried
+            ) {
+
+              floatingVisualOverlay.dataset.fallbackTried =
+                "true";
+
+              floatingVisualOverlay.src =
+                "assets/a10-floating-visual-strip.png";
+
+            } else {
+
+              console.warn(
+                "Could not load a10-floating-visual-strip.png"
+              );
+
+            }
+
+          }
+        );
+
+      }
+
+      /* LIGHTBOX */
 
       function openLightbox() {
-        lastFocusedElement = document.activeElement;
-        lightbox.classList.add("is-open");
-        document.body.style.overflow = "hidden";
+
+        if (
+          !lightbox ||
+          !lightboxClose
+        ) {
+
+          return;
+
+        }
+
+        lastFocusedElement =
+          document.activeElement;
+
+        lightbox.classList.add(
+          "is-open"
+        );
+
+        document.body.style.overflow =
+          "hidden";
+
         lightboxClose.focus();
+
       }
 
       function closeLightbox() {
-        lightbox.classList.remove("is-open");
-        document.body.style.overflow = "";
-        if (lastFocusedElement) lastFocusedElement.focus();
+
+        if (!lightbox) return;
+
+        lightbox.classList.remove(
+          "is-open"
+        );
+
+        document.body.style.overflow =
+          "";
+
+        if (
+          lastFocusedElement &&
+          typeof lastFocusedElement.focus === "function"
+        ) {
+
+          lastFocusedElement.focus();
+
+        }
+
       }
 
-      zoomTrigger.addEventListener("click", openLightbox);
-      lightboxClose.addEventListener("click", closeLightbox);
+      if (zoomTrigger) {
 
-      lightbox.addEventListener("click", (event) => {
-        if (event.target === lightbox) closeLightbox();
-      });
+        zoomTrigger.addEventListener(
+          "click",
+          openLightbox
+        );
 
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
-          closeLightbox();
+      }
+
+      if (lightboxClose) {
+
+        lightboxClose.addEventListener(
+          "click",
+          closeLightbox
+        );
+
+      }
+
+      if (lightbox) {
+
+        lightbox.addEventListener(
+          "click",
+          event => {
+
+            if (
+              event.target === lightbox
+            ) {
+
+              closeLightbox();
+
+            }
+
+          }
+        );
+
+      }
+
+      document.addEventListener(
+        "keydown",
+        event => {
+
+          if (
+            event.key === "Escape" &&
+            lightbox &&
+            lightbox.classList.contains(
+              "is-open"
+            )
+          ) {
+
+            closeLightbox();
+
+          }
+
         }
-      });
+      );
 
       setAmbientUI();
+
     })();
   </script>
 
