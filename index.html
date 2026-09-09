@@ -723,6 +723,80 @@
     }
 
     /* =========================================================
+       A-10 RESEARCH LABS INTRO
+    ========================================================= */
+
+    .labs-intro-screen {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 10000;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .labs-intro-screen.is-finished {
+      display: none;
+    }
+
+    .labs-intro-video {
+      width: 62vw;
+      height: 62vh;
+      max-width: 1100px;
+      max-height: 620px;
+      object-fit: contain;
+      background: #000;
+      display: none;
+    }
+
+    .labs-enter-button {
+      min-height: 48px;
+      padding: 0 26px;
+      border: 1px solid #5fdcff;
+      border-radius: 999px;
+      background: rgba(0, 20, 45, 0.78);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow:
+        0 0 12px rgba(95, 220, 255, .80),
+        inset 0 0 10px rgba(95, 220, 255, .35);
+      transition: .25s ease;
+    }
+
+    .labs-enter-button:hover,
+    .labs-enter-button:focus-visible {
+      color: #5fdcff;
+      outline: none;
+      box-shadow:
+        0 0 20px rgba(95, 220, 255, 1),
+        0 0 40px rgba(95, 220, 255, .70);
+    }
+
+    body.intro-active {
+      overflow: hidden;
+    }
+
+    .hero-lab-logo {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      min-height: 520px;
+      display: block;
+      object-fit: contain;
+      border-radius: 28px;
+      background: #01040a;
+    }
+
+    /* =========================================================
        AMBIENT AUDIO CONTROL
     ========================================================= */
 
@@ -857,6 +931,13 @@
         object-fit: cover;
       }
 
+      .hero-lab-logo {
+        min-height: 0;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: contain;
+      }
+
       .prototype-background-zone {
         top: 48vh;
         height: 310vh;
@@ -895,7 +976,8 @@
       }
 
       .hero-panel,
-      .hero-concept-video {
+      .hero-concept-video,
+      .hero-lab-logo {
         border-radius: 20px;
       }
 
@@ -924,7 +1006,39 @@
   </style>
 </head>
 
-<body>
+<body class="intro-active">
+
+  <!-- =====================================================
+       A-10 RESEARCH LABS INTRO
+  ====================================================== -->
+
+  <section
+    class="labs-intro-screen"
+    id="labsIntroScreen"
+    aria-label="A-10 C.O. Research Labs introduction"
+  >
+
+    <button
+      id="labsEnterButton"
+      class="labs-enter-button"
+      type="button"
+    >
+      ENTER A-10 C.O. RESEARCH LABS
+    </button>
+
+    <video
+      id="labsIntroVideo"
+      class="labs-intro-video"
+      playsinline
+      preload="auto"
+    >
+      <source
+        src="./assets/a10-research-labs-intro.mp4"
+        type="video/mp4"
+      >
+    </video>
+
+  </section>
 
   <!-- =====================================================
        BACKGROUND PROTOTYPE STRIP
@@ -1029,22 +1143,11 @@
         </div>
 
         <div class="hero-panel video-panel">
-          <video
-            class="hero-concept-video"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="auto"
-            aria-label="AtencIA conceptual intelligent environment visualization"
+          <img
+            class="hero-lab-logo"
+            src="./assets/a10-logo.jpg"
+            alt="A-10 C.O. Research Labs"
           >
-            <source
-              src="./assets/atencia-concept-video.MP4"
-              type="video/mp4"
-            >
-
-            Your browser does not support HTML5 video.
-          </video>
         </div>
 
       </div>
@@ -1817,6 +1920,15 @@
       const ambientToggle =
         document.getElementById("ambientToggle");
 
+      const labsIntroScreen =
+        document.getElementById("labsIntroScreen");
+
+      const labsEnterButton =
+        document.getElementById("labsEnterButton");
+
+      const labsIntroVideo =
+        document.getElementById("labsIntroVideo");
+
       const heroVideo =
         document.querySelector(".hero-concept-video");
 
@@ -2026,6 +2138,112 @@
 
           }
         );
+
+      }
+
+      /* =====================================================
+         A-10 RESEARCH LABS INTRO
+      ====================================================== */
+
+      function finishLabsIntro() {
+
+        if (labsIntroScreen) {
+          labsIntroScreen.classList.add("is-finished");
+        }
+
+        document.body.classList.remove("intro-active");
+
+        if (ambientAudio && !ambientAudio.paused) {
+          ambientAudio.volume = 0.34;
+          ambientOn = true;
+          setAmbientUI();
+        }
+
+      }
+
+      if (
+        labsEnterButton &&
+        labsIntroVideo
+      ) {
+
+        labsEnterButton.addEventListener(
+          "click",
+          async () => {
+
+            labsEnterButton.style.display = "none";
+            labsIntroVideo.style.display = "block";
+
+            labsIntroVideo.currentTime = 0;
+            labsIntroVideo.muted = false;
+
+            /*
+              Prime the ambient track from the user's ENTER gesture.
+              It plays silently during the intro, then rises to the
+              established site volume when the intro ends.
+            */
+            if (ambientAudio) {
+
+              try {
+
+                ambientAudio.src =
+                  "./assets/a10-labs-ambient.m4a";
+
+                ambientAudio.volume = 0;
+
+                await ambientAudio.play();
+
+                ambientOn = true;
+
+              } catch (error) {
+
+                console.warn(
+                  "Ambient audio could not be primed from ENTER:",
+                  error
+                );
+
+              }
+
+            }
+
+            try {
+
+              await labsIntroVideo.play();
+
+            } catch (error) {
+
+              console.error(
+                "Unable to play A-10 Research Labs intro:",
+                error
+              );
+
+              finishLabsIntro();
+
+            }
+
+          }
+        );
+
+        labsIntroVideo.addEventListener(
+          "ended",
+          finishLabsIntro
+        );
+
+        labsIntroVideo.addEventListener(
+          "error",
+          () => {
+
+            console.error(
+              "Could not load ./assets/a10-research-labs-intro.mp4"
+            );
+
+            finishLabsIntro();
+
+          }
+        );
+
+      } else {
+
+        document.body.classList.remove("intro-active");
 
       }
 
