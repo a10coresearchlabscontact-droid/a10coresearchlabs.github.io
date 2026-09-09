@@ -2177,46 +2177,77 @@
             labsIntroVideo.muted = false;
 
             /*
-              Prime the ambient track from the user's ENTER gesture.
-              It plays silently during the intro, then rises to the
-              established site volume when the intro ends.
+              IMPORTANT:
+              Start the intro video immediately from the ENTER gesture.
+              Do not wait for the ambient track first.
             */
-            if (ambientAudio) {
+            try {
 
-              try {
+              const introPlayback = labsIntroVideo.play();
 
-                ambientAudio.src =
-                  "./assets/a10-labs-ambient.m4a";
+              if (
+                introPlayback &&
+                typeof introPlayback.catch === "function"
+              ) {
 
-                ambientAudio.volume = 0;
+                introPlayback.catch(
+                  error => {
 
-                await ambientAudio.play();
+                    console.error(
+                      "Unable to play A-10 Research Labs intro:",
+                      error
+                    );
 
-                ambientOn = true;
+                    finishLabsIntro();
 
-              } catch (error) {
-
-                console.warn(
-                  "Ambient audio could not be primed from ENTER:",
-                  error
+                  }
                 );
 
               }
 
-            }
-
-            try {
-
-              await labsIntroVideo.play();
-
             } catch (error) {
 
               console.error(
-                "Unable to play A-10 Research Labs intro:",
+                "Unable to start A-10 Research Labs intro:",
                 error
               );
 
               finishLabsIntro();
+
+            }
+
+            /*
+              Prime the already-compatible ambient MP3 in parallel.
+              It stays silent during the intro and becomes audible
+              when the intro ends.
+            */
+            if (ambientAudio) {
+
+              ambientAudio.src =
+                "./assets/a10-labs-ambient-compatible.mp3";
+
+              ambientAudio.volume = 0;
+
+              const ambientPlayback =
+                ambientAudio.play();
+
+              if (
+                ambientPlayback &&
+                typeof ambientPlayback.then === "function"
+              ) {
+
+                ambientPlayback
+                  .then(() => {
+                    ambientOn = true;
+                  })
+                  .catch(error => {
+                    console.warn(
+                      "Ambient audio could not be primed from ENTER:",
+                      error
+                    );
+                  });
+
+              }
 
             }
 
