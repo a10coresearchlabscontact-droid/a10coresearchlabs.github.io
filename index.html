@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- A-10 C.O. Research Labs™ — Website Version 3.1 COMPLETE -->
+<!-- A-10 C.O. Research Labs™ — Website Version 4.0 — responsive editorial -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -12,6 +12,11 @@
     content="A-10 C.O. Research Labs™ is the science and technology division of A-10 C.O. Enterprises LLC, developing AtencIA™, intelligent architectures, human-technology symbiosis, contextual systems, interoperability and digital continuity."
   >
 
+  <meta name="theme-color" content="#020711">
+  <link rel="canonical" href="https://www.a10coresearchlabs.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="A-10 C.O. Research Labs™ | Science & Technology Division">
+  <meta property="og:description" content="Research in intelligent architectures, human–technology interaction and digital continuity.">
   <meta name="author" content="Dr. William J. Atencio González">
 
   <style>
@@ -1003,10 +1008,87 @@
         padding: 0 12px;
       }
     }
+  
+    /* V4 — responsive research editorial */
+    html { max-width:100%; overflow-x:hidden; scroll-padding-top:100px; }
+    body { width:100%; max-width:100%; overflow-wrap:anywhere; }
+    @supports (overflow:clip) { html,body { overflow-x:clip; } }
+    body.intro-active { overflow:hidden; }
+    main, header, footer, section { min-width:0; max-width:100%; }
+    .wrap { width:min(calc(100% - 48px),1280px); min-width:0; }
+    .hero-grid,.about-grid,.atencia-grid,.founder-grid,.contact-box,.novaverse-copy,.cards,.focus-grid { gap:clamp(18px,4vw,64px); }
+    .hero-grid > *, .about-grid > *, .atencia-grid > *, .founder-grid > *, .contact-box > *, .novaverse-copy > *, .cards > *, .focus-grid > * { min-width:0; }
+    .hero-grid { grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); }
+    .hero { overflow:hidden; isolation:isolate; min-height:calc(100svh - 78px); }
+    .hero::after { z-index:-1; width:min(520px,100%); right:0; }
+    h1 { font-size:clamp(36px,5.5vw,82px); line-height:1.04; text-wrap:balance; }
+    h2 { font-size:clamp(30px,4.5vw,56px); text-wrap:balance; }
+    .hero-copy,.intro { line-height:1.75; }
+    section { padding:clamp(64px,8vw,112px) 0; }
+    .card,.focus-card,.about-card,.contact-card { border-radius:24px; padding:clamp(20px,3vw,32px); background:linear-gradient(145deg,rgba(13,30,49,.94),rgba(5,13,24,.96)); }
+    .cards { gap:16px; grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .focus-grid { gap:16px; grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .hero-lab-logo { min-height:0; aspect-ratio:1; object-fit:contain; }
+    .hero-panel { overflow:hidden; }
+    .prototype-background-zone { max-width:100%; contain:layout paint; }
+    .floating-visual-overlay { opacity:.30; }
+    .btn { max-width:100%; text-align:center; white-space:normal; }
+    .btn:not(.primary):hover { background:rgba(73,232,255,.08); }
+    nav a { padding:12px 0; }
+    :focus-visible { outline:2px solid var(--cyan); outline-offset:4px; }
+    input,textarea { font-size:16px; min-width:0; }
+    .orcid { max-width:100%; flex-wrap:wrap; }
+    .sound-dock { right:max(16px,env(safe-area-inset-right)); bottom:max(16px,env(safe-area-inset-bottom)); }
+    .sound-btn { min-height:44px; }
+    .labs-intro-screen { width:100%; height:100%; height:100dvh; padding:24px; }
+    .labs-intro-video { width:min(100%,1100px); height:auto; max-height:85dvh; }
+    .labs-enter-button { max-width:100%; white-space:normal; }
+    .skip-intro { position:absolute; bottom:max(24px,env(safe-area-inset-bottom)); background:transparent; color:#dffbff; border:1px solid #49657b; border-radius:999px; padding:12px 20px; cursor:pointer; }
+    .menu-toggle { display:none; }
+    .skip-link { position:absolute; top:8px; left:8px; z-index:2000; background:#fff; color:#081320; padding:12px; transform:translateY(-150%); }
+    .skip-link:focus { transform:none; }
+    @media(max-width:950px) {
+      .hero-grid,.about-grid,.atencia-grid,.founder-grid,.contact-box,.novaverse-copy { grid-template-columns:minmax(0,1fr); }
+      .cards { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .hero { min-height:0; }
+      .hero-lab-logo { aspect-ratio:16/9; }
+      .nav { flex-wrap:wrap; gap:12px; }
+    }
+    @media(max-width:700px) {
+      html { scroll-padding-top:90px; }
+      .wrap { width:calc(100% - 36px); }
+      .nav { flex-direction:row; align-items:center; padding:12px 0; min-height:70px; gap:8px; }
+      .brand { flex:1; min-width:0; }
+      .brand strong { font-size:12px; letter-spacing:.06em; }
+      .brand span { font-size:9px; letter-spacing:.08em; }
+      .menu-toggle { display:inline-flex; align-items:center; justify-content:center; min-height:44px; min-width:44px; padding:8px 12px; border:1px solid var(--line-strong); border-radius:12px; background:var(--panel); color:var(--white); cursor:pointer; }
+      nav { display:none; flex-basis:100%; width:100%; gap:4px; max-height:65dvh; overflow-y:auto; }
+      nav.is-open { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+      nav a { display:block; padding:14px 10px; border-radius:10px; background:var(--panel); }
+      .hero { padding:48px 0 60px; }
+      .hero-actions { gap:10px; }
+      .hero-actions .btn { flex:1 1 140px; padding:10px 14px; }
+      .hero-copy,.intro { font-size:16px; }
+      .cards,.focus-grid { grid-template-columns:minmax(0,1fr); }
+      .card { min-height:0; }
+      .prototype-background-zone { display:none; }
+      .founder-photo { max-width:320px; }
+      .atencia-logo-wrap { padding:20px; }
+      .image-lightbox { padding:12px; }
+      .image-lightbox-inner { width:100%; }
+      footer { padding-bottom:90px; }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      *,*::before,*::after { animation:none!important; transition:none!important; }
+    }
+
   </style>
 </head>
 
 <body class="intro-active">
+  <a class="skip-link" href="#home">Skip to content</a>
+  <noscript><style>.labs-intro-screen{display:none!important}body.intro-active{overflow:auto}nav{display:flex!important}</style></noscript>
 
   <!-- =====================================================
        A-10 RESEARCH LABS INTRO
@@ -1026,11 +1108,12 @@
       ENTER A-10 C.O. RESEARCH LABS
     </button>
 
+    <button type="button" class="skip-intro" id="skipIntro">Skip introduction</button>
     <video
       id="labsIntroVideo"
       class="labs-intro-video"
       playsinline
-      preload="auto"
+      preload="metadata"
     >
       <source
         src="./assets/a10-research-labs-intro.mp4"
@@ -1057,7 +1140,7 @@
        AMBIENT MUSIC
   ====================================================== -->
 
-  <audio id="ambientAudio" loop preload="auto"></audio>
+  <audio id="ambientAudio" loop preload="none"></audio>
 
   <div class="sound-dock" aria-label="Audio controls">
     <button
@@ -1082,7 +1165,8 @@
         <span>Science & Technology Division</span>
       </a>
 
-      <nav>
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="siteNav">Menu</button>
+      <nav id="siteNav" aria-label="Main navigation">
         <a href="#about">About</a>
         <a href="#pillars">Pillars</a>
         <a href="#focus">Focus Areas</a>
@@ -1726,7 +1810,7 @@
                 class="btn primary"
                 style="cursor:pointer;"
               >
-                Send Message
+                Open email draft
               </button>
 
             </form>
@@ -1944,10 +2028,18 @@
       const lightboxClose =
         document.getElementById("lightboxClose");
 
+      const menuToggle = document.querySelector(".menu-toggle");
+      const siteNav = document.getElementById("siteNav");
+      function closeMenu() { siteNav.classList.remove("is-open"); menuToggle.setAttribute("aria-expanded","false"); }
+      menuToggle.addEventListener("click", () => { const open = siteNav.classList.toggle("is-open"); menuToggle.setAttribute("aria-expanded",String(open)); });
+      siteNav.addEventListener("click", e => { if(e.target.closest("a")) closeMenu(); });
+      document.addEventListener("keydown", e => { if(e.key==="Escape" && siteNav.classList.contains("is-open")) { closeMenu(); menuToggle.focus(); } });
+      document.getElementById("skipIntro").addEventListener("click", () => { labsIntroVideo.pause(); if(ambientAudio) ambientAudio.pause(); finishLabsIntro(); });
       let ambientOn = false;
       let lastFocusedElement = null;
 
       const ambientSources = [
+        "./assets/a10-labs-ambient-compatible.mp3",
         "a10-labs-ambient.m4a",
         "assets/a10-labs-ambient.m4a"
       ];
